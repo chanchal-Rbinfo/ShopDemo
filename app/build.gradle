@@ -1,0 +1,114 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+//    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-platform-android'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.practical.shopcat"
+        minSdk 22
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+        }
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
+
+        }
+    }
+    defaultConfig {
+        testInstrumentationRunnerArguments clearPackageData: 'false'
+    }
+    testOptions {
+        unitTests.returnDefaultValues = false
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    implementation "androidx.arch.core:core-testing:2.2.0"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:5.7.0"
+    testImplementation "io.mockk:mockk:1.10.5"
+    androidTestImplementation "org.assertj:assertj-core:3.19.0"
+
+    var espressoIntentsVersion = '3.3.0'
+    var espressoVersion = '3.5.1'
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
+    implementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoIntentsVersion"
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0"
+
+    var retrofitVersion = '2.9.0'
+    var moshiVersion = '1.11.0'
+    var okhttpInterceptorVersion = '4.9.0'
+    var hilt_viewmodels = '1.0.0-alpha03'
+    var activityKtxVersion = '1.6.1'
+    var picassoVersion = '2.71828'
+    // retrofit
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpInterceptorVersion"
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    implementation "androidx.activity:activity-ktx:$activityKtxVersion"
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+}
+kapt {
+    correctErrorTypes true
+}
